@@ -27,7 +27,7 @@ if [ -z "$TAILSCALE_AUTHKEY" ]; then
   exit 1
 fi
 echo -e "${YELLOW}Authenticating Tailscale with authkey...${NC}"
-sudo tailscale up --authkey=$TAILSCALE_AUTHKEY
+sudo tailscale up --authkey=$TAILSCALE_AUTHKEY # secret
 
 # Step 4: Configure insecure registry
 echo -e "${YELLOW}Configuring Docker registry...${NC}"
@@ -50,7 +50,7 @@ if [ -z "$SWARM_TOKEN" ]; then
   echo -e "${YELLOW}Run manually: docker swarm join --token <token> ${REGISTRY_IP}:2377${NC}"
 else
   echo -e "${YELLOW}Joining Docker Swarm...${NC}"
-  docker swarm join --token $SWARM_TOKEN ${REGISTRY_IP}:2377
+  docker swarm join --token $SWARM_TOKEN ${REGISTRY_IP}:2377 # secret
 fi
 
 echo -e "${GREEN}=== Setup Complete ===${NC}"
