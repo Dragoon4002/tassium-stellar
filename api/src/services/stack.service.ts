@@ -21,9 +21,6 @@ ${envSection}
       - traefik-public
     deploy:
       replicas: 2
-      placement:
-        constraints:
-          - node.role == worker
       update_config:
         parallelism: 1
         delay: 10s
@@ -44,8 +41,10 @@ networks:
     external: true
 `;
 }
-
-export async function writeStackFile(appName: string, yaml: string): Promise<string> {
+export async function writeStackFile(
+  appName: string,
+  yaml: string,
+): Promise<string> {
   await mkdir(STACKS_DIR, { recursive: true });
   const filePath = `${STACKS_DIR}/${appName}.yml`;
   await Bun.write(filePath, yaml);
